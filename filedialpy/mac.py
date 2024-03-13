@@ -28,21 +28,21 @@ def mac_wrapper(initial_dir=None,initial_file=None,filter=None,
     return res
 
 def openFile(initial_dir=None,initial_file=None,filter=None,title=None):
-    mac_wrapper(initial_dir=initial_dir,initial_file=initial_file,
+    return mac_wrapper(initial_dir=initial_dir,initial_file=initial_file,
                 filter=filter,title=title)
     
 def openFiles(initial_dir=None,initial_file=None,filter=None,title=None):
-    mac_wrapper(initial_dir=initial_dir,initial_file=initial_file,
+    return mac_wrapper(initial_dir=initial_dir,initial_file=initial_file,
                 filter=filter,title=title,multiple=True)
     
 def openDir(initial_dir=None,initial_file=None,filter=None,title=None):
-    mac_wrapper(initial_dir=initial_dir,initial_file=initial_file,
+    return mac_wrapper(initial_dir=initial_dir,initial_file=initial_file,
                 filter=filter,title=title,directory=True)
 
 def openDirs(initial_dir=None,initial_file=None,filter=None,title=None):
-    mac_wrapper(initial_dir=initial_dir,initial_file=initial_file,
+    return mac_wrapper(initial_dir=initial_dir,initial_file=initial_file,
                 filter=filter,title=title,directory=True,multiple=True)
     
 def saveFile(initial_dir=None,initial_file=None,filter=None,title=None):
-    mac_wrapper(initial_dir=initial_dir,initial_file=initial_file,
+    return mac_wrapper(initial_dir=initial_dir,initial_file=initial_file,
                 filter=filter,title=title,save=True)

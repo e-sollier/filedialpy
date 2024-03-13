@@ -48,13 +48,13 @@ def windows_wrapper(initial_dir=None,initial_file=None,filter=None,title=None,mu
     return res
 
 def openFile(initial_dir=None,initial_file=None,filter=None,title=None):
-    windows_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title)
+    return windows_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title)
 
 def openFiles(initial_dir=None,initial_file=None,filter=None,title=None):
-    windows_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title,multiple=True)
+    return windows_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title,multiple=True)
 
 def saveFile(initial_dir=None,initial_file=None,filter=None,title=None):
-    windows_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title,save=True)
+    return windows_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title,save=True)
 
 def openDir(title="Choose a folder",**kwargs):
     hwnd = win32gui.GetForegroundWindow()
