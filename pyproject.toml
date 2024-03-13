@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["filedialpy"]
+
+
+
+[project]
+name = 'filedialpy'
+version = "0.1.0"
+description = 'Package for opening native file dialogs in linux, macOS and windows.'
+readme = 'README.md'
+authors = [
+  { name = 'Etienne Sollier'},
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+requires-python = '>=3.3'
+dependencies = [
+  "pywin32; platform_system == 'Windows'",
+]
+
+
+[project.urls]
+"Homepage" = "https://github.com/e-sollier/filedialpy"
