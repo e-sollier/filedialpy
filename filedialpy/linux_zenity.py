@@ -6,8 +6,8 @@ def zenity_wrapper(initial_dir=None,initial_file=None,filter=None,title=None,mul
 
     if initial_dir is None:
         initial_dir=os.getcwd()
-    if initial_file is not None: filename = os.path.join(initial_dir,initial_file)
-    else: filename = initial_dir
+    if initial_file is None: initial_file=""
+    filename = os.path.join(initial_dir,initial_file)
     cmd.append("--filename")
     cmd.append(filename)
 
