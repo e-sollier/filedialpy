@@ -59,6 +59,6 @@ def saveFile(initial_dir=None,initial_file=None,filter=None,title=None):
 def openDir(title="Choose a folder",**kwargs):
     hwnd = win32gui.GetForegroundWindow()
     initial_pidl = shell.SHGetFolderLocation(hwnd, shellcon.CSIDL_DESKTOP, 0, 0)
-    pidl, display_name, image_list = shell.SHBrowseForFolder(hwnd,initial_pidl,title,0,None, None)
+    pidl, display_name, image_list = shell.SHBrowseForFolder(hwnd,initial_pidl,title, shellcon.ASSOCF_VERIFY,None, None)
     if pidl is not None: return shell.SHGetPathFromIDListW(pidl)
     else: return ""

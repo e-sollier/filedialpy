@@ -9,7 +9,7 @@ packages = ["filedialpy"]
 
 [project]
 name = 'filedialpy'
-version = "1.2.1"
+version = "1.2.2"
 description = 'Package for opening native file dialogs on linux, macOS and windows.'
 readme = 'README.md'
 authors = [
