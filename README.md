@@ -28,6 +28,7 @@ f=filedialpy.saveFile(initial_dir="/home/user/Documents",initial_file="config.js
 - **initial_file**: Initial filename.
 - **title**: Title for the dialog window.
 - **filter**: string "*.json *.txt" (different accepted extensions can be separated by a space), or a list of such strings in order to provide several possible filters.
+- **confirm_overwrite**: Only for saveFile. If true (default), will prompt the user for a confirmation before overwriting an existing file. On some platforms (mac, kdialog), this overwrite confirmation cannot be disabled.
 
 
 ## Acknowledgements
