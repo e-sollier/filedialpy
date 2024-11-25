@@ -38,5 +38,5 @@ def openDir(initial_dir=None,initial_file=None,filter=None,title=None):
 def openDirs(initial_dir=None,initial_file=None,filter=None,title=None):
     return kdialog_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title,directory=True,multiple=True)
 
-def saveFile(initial_dir=None,initial_file=None,filter=None,title=None):
+def saveFile(initial_dir=None,initial_file=None,filter=None,title=None,confirm_overwrite=True):
     return kdialog_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title,save=True)

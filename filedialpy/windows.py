@@ -4,7 +4,7 @@ import win32con
 from win32com.shell import shell, shellcon
 
 
-def windows_wrapper(initial_dir=None,initial_file=None,filter=None,title=None,multiple=False,directory=False,save=False):
+def windows_wrapper(initial_dir=None,initial_file=None,filter=None,title=None,multiple=False,directory=False,save=False,confirm_overwrite=True):
     kwargs={}
     if initial_dir is not None: kwargs["InitialDir"] = initial_dir
 
@@ -29,6 +29,10 @@ def windows_wrapper(initial_dir=None,initial_file=None,filter=None,title=None,mu
 
     if multiple:
         kwargs["Flags"]=win32con.OFN_ALLOWMULTISELECT  | win32con.OFN_EXPLORER
+
+    if save and confirm_overwrite:
+        if "Flags" in kwargs: kwargs["Flags"] = kwargs["Flags"] | win32con.OFN_OVERWRITEPROMPT
+        else:  kwargs["Flags"] = win32con.OFN_OVERWRITEPROMPT
         
 
     try:
@@ -53,7 +57,7 @@ def openFile(initial_dir=None,initial_file=None,filter=None,title=None):
 def openFiles(initial_dir=None,initial_file=None,filter=None,title=None):
     return windows_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title,multiple=True)
 
-def saveFile(initial_dir=None,initial_file=None,filter=None,title=None):
+def saveFile(initial_dir=None,initial_file=None,filter=None,title=None,confirm_overwrite=True):
     return windows_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title,save=True)
 
 def openDir(title="Choose a folder",**kwargs):

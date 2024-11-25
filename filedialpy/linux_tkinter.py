@@ -38,10 +38,10 @@ def openDir(initial_dir=None,initial_file=None,filter=None,title=None):
     root.destroy()
     return t
 
-def saveFile(initial_dir=None,initial_file=None,filter=None,title=None):
+def saveFile(initial_dir=None,initial_file=None,filter=None,title=None,confirm_overwrite=True):
     root = Tk()
     root.withdraw()
-    t=tkinter.filedialog.asksaveasfilename(initialdir=initial_dir,initialfile=initial_file,title=title,filetypes=convert_filter(filter))
+    t=tkinter.filedialog.asksaveasfilename(initialdir=initial_dir,initialfile=initial_file,title=title,filetypes=convert_filter(filter),confirmoverwrite=confirm_overwrite)
     if len(t)==0: t=""
     root.destroy()
     return t

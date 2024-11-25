@@ -1,7 +1,7 @@
 import subprocess
 import os
 
-def zenity_wrapper(initial_dir=None,initial_file=None,filter=None,title=None,multiple=False,directory=False,save=False):
+def zenity_wrapper(initial_dir=None,initial_file=None,filter=None,title=None,multiple=False,directory=False,save=False,confirm_overwrite=True):
     cmd=["zenity","--file-selection"]
 
     if initial_dir is None:
@@ -28,6 +28,8 @@ def zenity_wrapper(initial_dir=None,initial_file=None,filter=None,title=None,mul
         cmd.append("--directory")
     if save:
         cmd.append("--save")
+        if confirm_overwrite:
+            cmd.append("--confirm-overwrite")
     result = subprocess.run(cmd,capture_output=True, text=True)
     if multiple: return [x.strip() for x in result.stdout.split("|")]
     else: return result.stdout.strip()
@@ -44,5 +46,5 @@ def openDir(initial_dir=None,initial_file=None,filter=None,title=None):
 def openDirs(initial_dir=None,initial_file=None,filter=None,title=None):
     return zenity_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title,directory=True,multiple=True)
 
-def saveFile(initial_dir=None,initial_file=None,filter=None,title=None):
-    return zenity_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title,save=True)
+def saveFile(initial_dir=None,initial_file=None,filter=None,title=None,confirm_overwrite=True):
+    return zenity_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title,save=True,confirm_overwrite=confirm_overwrite)
