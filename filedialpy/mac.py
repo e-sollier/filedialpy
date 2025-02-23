@@ -44,9 +44,6 @@ def openDirs(initial_dir=None,initial_file=None,filter=None,title=None):
                 filter=filter,title=title,directory=True,multiple=True)
     
 def saveFile(initial_dir=None,initial_file=None,filter=None,title=None,confirm_overwrite=True):
-    try:
-        return mac_wrapper(initial_dir=initial_dir,initial_file=initial_file,
-                filter=filter,title=title,save=True)
-    except: # "of type " not working for "choose file name"
-        return mac_wrapper(initial_dir=initial_dir,initial_file=initial_file,
-                title=title,save=True)
+    # "of type " not working for "choose file name" so ignore filter.
+    return mac_wrapper(initial_dir=initial_dir,initial_file=initial_file,
+            title=title,save=True)
