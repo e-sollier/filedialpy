@@ -24,8 +24,8 @@ def mac_wrapper(initial_dir=None,initial_file=None,filter=None,
     res=subprocess.run(["osascript","-"],input=cmd,text=True, capture_output=True)
     res=res.stdout.strip().split(",")
     res=[x[x.find(":"):].replace(":","/") for x in res]
-    if not multiple: res=res[0]
     res=[os.path.realpath(x) for x in res]
+    if not multiple: res=res[0]
     return res
 
 def openFile(initial_dir=None,initial_file=None,filter=None,title=None):
