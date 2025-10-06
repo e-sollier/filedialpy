@@ -81,7 +81,7 @@ def openDir(initial_dir=None, title="Choose a folder", **kwargs):
     pidl, display_name, image_list = shell.SHBrowseForFolder(
         win32gui.GetDesktopWindow(),  # Parent window
         None,  # Root PIDL (None for desktop, allowing full browsing)
-        "Select a folder",  # Dialog title
+        title,  # Dialog title
         0x40,  # Optional: Modern dialog style (0x40)
         browse_callback,  # Callback function
         initial_dir  # Passed as callback_data
