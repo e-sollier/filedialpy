@@ -60,9 +60,35 @@ def openFiles(initial_dir=None,initial_file=None,filter=None,title=None):
 def saveFile(initial_dir=None,initial_file=None,filter=None,title=None,confirm_overwrite=True):
     return windows_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title,save=True)
 
-def openDir(title="Choose a folder",**kwargs):
-    hwnd = win32gui.GetForegroundWindow()
-    initial_pidl = shell.SHGetFolderLocation(hwnd, shellcon.CSIDL_DESKTOP, 0, 0)
-    pidl, display_name, image_list = shell.SHBrowseForFolder(hwnd,initial_pidl,title, shellcon.ASSOCF_VERIFY,None, None)
-    if pidl is not None: return shell.SHGetPathFromIDListW(pidl)
-    else: return ""
+def browse_callback(hwnd, uMsg, lParam, lpData):
+    if uMsg == shellcon.BFFM_INITIALIZED:
+        # Use BFFM_SETSELECTIONW (WM_USER + 103) for Unicode paths
+        win32gui.SendMessage(hwnd, win32con.WM_USER + 103, 1, lpData)
+    return 0
+
+def openDir(initial_dir=None, title="Choose a folder", **kwargs):
+    try:
+        initial_dir = str(initial_dir)
+        if not os.path.exists(initial_dir):
+            initial_dir = None
+        elif os.path.isfile(initial_dir):
+            initial_dir = os.path.dirname(initial_dir)
+        elif not os.path.isdir(initial_dir):
+            raise AssertionError("Expected code to be unreachable")
+    except Exception:
+        initial_dir = None
+
+    pidl, display_name, image_list = shell.SHBrowseForFolder(
+        win32gui.GetDesktopWindow(),  # Parent window
+        None,  # Root PIDL (None for desktop, allowing full browsing)
+        "Select a folder",  # Dialog title
+        0x40,  # Optional: Modern dialog style (0x40)
+        browse_callback,  # Callback function
+        initial_dir  # Passed as callback_data
+    )
+    
+    if pidl is not None:
+        path = shell.SHGetPathFromIDListW(pidl)
+        return path
+    else:
+        return ""
