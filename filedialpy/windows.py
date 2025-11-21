@@ -48,7 +48,6 @@ def windows_wrapper(initial_dir=None,initial_file=None,filter=None,title=None,mu
         dirname=res[0]
         if len(res)>1:
             res = [os.path.join(dirname,x) for x in res[1:]]
-        else: res=[]
     return res
 
 def openFile(initial_dir=None,initial_file=None,filter=None,title=None):
@@ -65,4 +64,5 @@ def openDir(title="Choose a folder",**kwargs):
     initial_pidl = shell.SHGetFolderLocation(hwnd, shellcon.CSIDL_DESKTOP, 0, 0)
     pidl, display_name, image_list = shell.SHBrowseForFolder(hwnd,initial_pidl,title, shellcon.ASSOCF_VERIFY,None, None)
     if pidl is not None: return shell.SHGetPathFromIDListW(pidl)
+
     else: return ""
