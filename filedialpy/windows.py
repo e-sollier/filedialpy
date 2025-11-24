@@ -1,6 +1,7 @@
 import os
 import win32gui
 import win32con
+import win32console
 from win32com.shell import shell, shellcon
 
 
@@ -36,7 +37,7 @@ def windows_wrapper(initial_dir=None,initial_file=None,filter=None,title=None,mu
         
 
     try:
-        hwnd = win32gui.GetForegroundWindow()
+        hwnd = win32console.GetConsoleWindow()
         if save:
             res=win32gui.GetSaveFileNameW(hwndOwner=hwnd,**kwargs)[0]
         else:
