@@ -61,10 +61,14 @@ def openFiles(initial_dir=None,initial_file=None,filter=None,title=None):
 def saveFile(initial_dir=None,initial_file=None,filter=None,title=None,confirm_overwrite=True):
     return windows_wrapper(initial_dir=initial_dir,initial_file=initial_file,filter=filter,title=title,save=True)
 
-def openDir(title="Choose a folder",**kwargs):
+def _browse_callback_proc(hwnd, msg, lp, data):
+    if msg == shellcon.BFFM_INITIALIZED:
+        win32gui.SendMessage(hwnd, shellcon.BFFM_SETSELECTIONW, 1, data)
+
+def openDir(initial_dir=None,initial_file=None,filter=None,title="Choose a folder"):
     hwnd = win32gui.GetForegroundWindow()
-    initial_pidl = shell.SHGetFolderLocation(hwnd, shellcon.CSIDL_DESKTOP, 0, 0)
-    pidl, display_name, image_list = shell.SHBrowseForFolder(hwnd,initial_pidl,title, shellcon.ASSOCF_VERIFY,None, None)
+    callback = _browse_callback_proc if initial_dir is not None else None
+    pidl, display_name, image_list = shell.SHBrowseForFolder(hwnd, None, title, shellcon.ASSOCF_VERIFY, callback, initial_dir)
     if pidl is not None: return shell.SHGetPathFromIDListW(pidl)
     else: return ""
 
