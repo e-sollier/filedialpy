@@ -21,8 +21,11 @@ def mac_wrapper(initial_dir=None,initial_file=None,filter=None,
         cmd+=" of type {"+filter_string+"}"
     if multiple: cmd+=" with multiple selections allowed"
     #res=subprocess.run(["osascript","-"],input="the POSIX path of ("+cmd+")",text=True, capture_output=True)
-    res=subprocess.run(["osascript","-"],input=cmd,text=True, capture_output=True)
-    res=res.stdout.strip().split(",")
+    proc=subprocess.run(["osascript","-"],input=cmd,text=True, capture_output=True)
+    if proc.returncode != 0:
+        if multiple: return []
+        return ""
+    res=proc.stdout.strip().split(",")
     res=[x[x.find(":"):].replace(":","/") for x in res]
     res=[os.path.realpath(x) for x in res]
     if not multiple: res=res[0]
